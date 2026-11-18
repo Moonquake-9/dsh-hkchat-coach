@@ -1,8 +1,8 @@
 # 港话通粤语教练 · dsh-hkchat-coach
 
-一个 [DSH](https://www.deepseek.com) 配置型 bundle：把一个**零依赖的本地 MCP server**（`mcp__hkchat__yue_*`）装进每个会话，配一份教学用 Skill。
+中文 · [English](README.en.md)
 
-A config-only DSH bundle that inserts a dependency-free local MCP server exposing Cantonese-learning tools (Jyutping, rewriting, roleplay, quizzes, practice log). Works with no API key; optionally upgrades to the HKGAI model endpoint.
+一个 [DSH](https://www.deepseek.com) 配置型 bundle：把一个**零依赖的本地 MCP server**（`mcp__hkchat__yue_*`）装进每个会话，配一份教学用 Skill。
 
 - **默认零 key 可用**：内置粤语规则库（123 条高频词 / 14 个语气词 / 六调表 / 5 个场景剧本）。
 - **有 HKGAI 令牌时升级**：改写与自由场景交给港话通背后的 HKGAI 粤语模型，规则库退为兜底。
@@ -47,6 +47,7 @@ server/test-hkgai.mjs    HKGAI 链路自测（本地假服务器，5 条）
 skills/cantonese-coach/  教学 Skill
 locale/ · icon.svg       插件页显示元数据
 HANDOVER.md              给组员/老师的交接页（非技术，可直接转发）
+README.en.md             英文版说明
 ```
 
 ## 自测
