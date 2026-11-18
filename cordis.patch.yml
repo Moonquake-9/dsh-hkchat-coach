@@ -1,0 +1,20 @@
+# 港话通粤语教练：配置型 bundle，唯一动作是把一个 stdio MCP server 接进 DSH。
+# 安装后工具以 mcp__hkchat__yue_* 的形式出现在每个会话里（新会话生效）。
+- insert:
+    - id: hkchat-coach-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: hkchat
+        transport: stdio
+        command: node
+        args:
+          - 'D:/Desktop/DSH/dsh-hkchat-coach/server/server.mjs'
+        env:
+          # 练习记录与 credentials.json 默认落在 ~/.dsh/hkchat-coach（server 自己用 os.homedir() 兜底），
+          # 想换位置就加 HKCAT_COACH_HOME: '<绝对路径>'（子进程环境会被 scrub，只有这里显式写的才保留）。
+          # HKGAI 开发者中心（无 key 时自动退回内置规则库，不影响使用）
+          HKGAI_API_BASE: 'https://api.hkgai.org/v1'
+          HKGAI_MODEL: 'hkgai-v2'
+        failOnStartupError: true
+        startupTimeoutMs: 20000
+        toolCallTimeoutMs: 120000

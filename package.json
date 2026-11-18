@@ -1,0 +1,41 @@
+{
+  "name": "dsh-hkchat-coach",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "港话通粤语教练：粤拼六调讲解、普→粤改写、场景对话、出题判分与练习记录；有 HKGAI key 时接入 HKGAI 粤语模型，无 key 时用内置规则库。",
+  "keywords": [
+    "dsh",
+    "bundle",
+    "cantonese",
+    "jyutping",
+    "mcp",
+    "hkchat"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    "./icon": "./icon.svg",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "cordis.patch.yml",
+    "server/*.mjs",
+    "skills",
+    "locale/*.json",
+    "icon.svg",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node server/test.mjs && node server/test-hkgai.mjs",
+    "test:engine": "node server/test.mjs",
+    "test:hkgai": "node server/test-hkgai.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
