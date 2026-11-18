@@ -22,7 +22,23 @@
 
 ## 安装
 
-1. **改路径**：`cordis.patch.yml` 的 `args` 里写死了本目录的绝对路径，换成你机器上的 `<本目录>/server/server.mjs`。（练习记录默认落在 `~/.dsh/hkchat-coach`，要换位置再加 `HKCAT_COACH_HOME`。）
+0. **先试效果（可选，不用装 DSH）**：只要 Node 20+。
+
+   ```bash
+   node server/cli.mjs status
+   node server/cli.mjs rewrite "我想问一下，这个东西多少钱？"
+   node server/cli.mjs roleplay 茶餐廳落單 --turns 4
+   ```
+
+   同 DSH 里那 6 个工具是同一套引擎，`node server/cli.mjs help` 看全部命令。
+
+1. **改路径**：`cordis.patch.yml` 的 `args` 里写死了本目录的绝对路径，换成你机器上的 `<本目录>/server/server.mjs`。（练习记录默认落在 `~/.dsh/hkchat-coach`，要换位置再加 `HKCAT_COACH_HOME`。）PowerShell 里可以一条命令搞定：
+
+   ```powershell
+   node -e "const fs=require('fs');const t=fs.readFileSync('cordis.patch.yml','utf8');fs.writeFileSync('cordis.patch.yml',t.replace('D:/Desktop/DSH/dsh-hkchat-coach',process.cwd().replace(/\\/g,'/')))"
+   ```
+
+   > 用 Node 而不是 `Get-Content`/`Set-Content`：Windows PowerShell 5.1 会按 GBK 读写，把文件里的中文注释写成乱码。
 
 2. **装入 DSH**（在 DSH 会话里执行）：
 
@@ -39,6 +55,7 @@
 ```text
 cordis.patch.yml         插入 dsh-mcp-client 的配置
 server/server.mjs        MCP stdio 服务（手写 JSON-RPC，零依赖）
+server/cli.mjs           命令行体验入口（不装 DSH 也能跑）
 server/engine.mjs        六个工具的实现
 server/data.mjs          粤语知识库（词表 / 语气词 / 六调 / 场景）
 server/llm.mjs           HKGAI 客户端（无令牌时不启用）
@@ -47,6 +64,7 @@ server/test-hkgai.mjs    HKGAI 链路自测（本地假服务器，5 条）
 skills/cantonese-coach/  教学 Skill
 locale/ · icon.svg       插件页显示元数据
 HANDOVER.md              给组员/老师的交接页（非技术，可直接转发）
+SHARE.md                 给组员的 3 分钟上手页（含免装 DSH 的体验方式）
 README.en.md             英文版说明
 ```
 

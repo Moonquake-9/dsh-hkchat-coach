@@ -22,7 +22,23 @@ Plus `yue_status`: tells you whether you are in "rule-base mode" or "HKGAI mode"
 
 ## Install
 
-1. **Fix the path** — `cordis.patch.yml` hard-codes this directory in `args`. Replace it with `<this directory>/server/server.mjs` on your machine. (Practice logs default to `~/.dsh/hkchat-coach`; add `HKCAT_COACH_HOME` to move them.)
+0. **Try it first (optional, no DSH needed)** — you only need Node 20+.
+
+   ```bash
+   node server/cli.mjs status
+   node server/cli.mjs rewrite "我想问一下，这个东西多少钱？"
+   node server/cli.mjs roleplay 茶餐廳落單 --turns 4
+   ```
+
+   Same engine as the six tools in DSH; `node server/cli.mjs help` lists every command.
+
+1. **Fix the path** — `cordis.patch.yml` hard-codes this directory in `args`. Replace it with `<this directory>/server/server.mjs` on your machine. (Practice logs default to `~/.dsh/hkchat-coach`; add `HKCAT_COACH_HOME` to move them.) On Windows, one command does it:
+
+   ```powershell
+   node -e "const fs=require('fs');const t=fs.readFileSync('cordis.patch.yml','utf8');fs.writeFileSync('cordis.patch.yml',t.replace('D:/Desktop/DSH/dsh-hkchat-coach',process.cwd().replace(/\\/g,'/')))"
+   ```
+
+   > Use Node rather than `Get-Content`/`Set-Content`: Windows PowerShell 5.1 reads and writes GBK, which turns the Chinese comments into mojibake.
 
 2. **Install the bundle** (run it inside a DSH session):
 
@@ -39,6 +55,7 @@ Plus `yue_status`: tells you whether you are in "rule-base mode" or "HKGAI mode"
 ```text
 cordis.patch.yml         config that inserts dsh-mcp-client
 server/server.mjs        MCP stdio server (hand-written JSON-RPC, no dependencies)
+server/cli.mjs           command-line entry point (no DSH required)
 server/engine.mjs        implementation of the six tools
 server/data.mjs          the Cantonese knowledge base (lexicon / particles / tones / scenes)
 server/llm.mjs           HKGAI client (inactive without a token)
@@ -47,6 +64,7 @@ server/test-hkgai.mjs    HKGAI path tests against a local fake server (5 asserti
 skills/cantonese-coach/  the teaching Skill
 locale/ · icon.svg       metadata used by the Plugins page
 HANDOVER.md              non-technical handover page for teammates/teachers (Chinese)
+SHARE.md                 3-minute getting-started page for teammates (Chinese)
 ```
 
 ## Tests
